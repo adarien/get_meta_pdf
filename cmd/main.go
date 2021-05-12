@@ -3,19 +3,20 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/barasher/go-exiftool"
 	"log"
 	"os"
 	"strings"
+
+	"github.com/barasher/go-exiftool"
 )
 
-//var sung = []byte("\u266A")
+// var sung = []byte("\u266A")
 
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
+//func check(e error) {
+//	if e != nil {
+//		panic(e)
+//	}
+//}
 
 func main() {
 	f, err := os.Create("./info/data.txt")
@@ -37,7 +38,7 @@ func main() {
 		}
 	}(et)
 
-	file, err := os.Open("./info/read.txt")
+	file, err := os.Open("./info/href.csv")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -49,7 +50,7 @@ func main() {
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		s := strings.Split(scanner.Text(), ",")
+		s := strings.Split(scanner.Text(), "♪")
 		fmt.Println(s[2], s[5])
 		fileInfos := et.ExtractMetadata(fmt.Sprintf("./files/%s", s[5]))
 
@@ -70,5 +71,4 @@ func main() {
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
-
 }
